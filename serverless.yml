@@ -58,7 +58,7 @@ provider:
 
 functions:
   collect_traffic_data:
-    handler: trafict_data_collector.handler
+    handler: traffict_data_collector.handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
