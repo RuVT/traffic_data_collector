@@ -42,10 +42,23 @@ provider:
           - - "arn:aws:s3:::"
             - "Ref" : "TrafficDataSourceBucketResource"
             - "/*"
+    - Effect: "Allow"
+      Action:
+        - "dynamodb:*"
+      Resource:
+        Fn::Join:
+          - ""
+          - - "arn:aws:dynamodb:"
+            - ${self:provider.region}
+            - ":"
+            - "Ref" : "AWS::AccountId"
+            - ":table/"
+            - "Ref" : "OriginDestinationTableResource"
 
 # you can define service wide environment variables here
   environment:
     TRAFFIC_DATA_SOURCE_BUCKET_NAME: traffic-data-source
+    ORIGIN_DESTINATION_TABLE_NAME: origin-destination-table
 
 # you can add packaging information here
 #package:
@@ -101,10 +114,19 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.TRAFFIC_DATA_SOURCE_BUCKET_NAME}
-  Outputs:
-    TrafficDataSourceBucketOutput:
-      Description: "The s3 bucket the will hold the data from google maps distance matrix api"
-      Value: 
-        Ref: TrafficDataSourceBucketResource
+    OriginDestinationTableResource:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.ORIGIN_DESTINATION_TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: uuid
+            AttributeType: S
+        KeySchema:
+          - AttributeName: uuid
+            KeyType: HASH
+        # Set the capacity based on the stage
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
 plugins:
   - serverless-python-requirements
