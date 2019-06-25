@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-aws s3 ls
-serverless --version
+KEY=$1
+echo "serverless deploy -- --GOOGLE_MAPS_API_KEY $KEY"
