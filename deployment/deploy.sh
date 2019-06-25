@@ -6,4 +6,4 @@ then
     echo "Usage: deploy.sh <GOOGLE_API_KEY> <BUILD_NUMBER>"
     exit 1
 fi
-serverless deploy --GOOGLE_MAPS_API_KEY $KEY --alias $BUILD_NUMBER
+serverless deploy --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
