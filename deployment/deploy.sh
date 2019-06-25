@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 KEY=$1
-if [ -z $KEY ]
+BUILD_NUMBER=$2
+if [ -z $KEY ] || [ -z $BUILD_NUMBER ]
 then
-    echo "Usage: deploy '<GOOGLE_API_KEY>'"
+    echo "Usage: deploy.sh <GOOGLE_API_KEY> <BUILD_NUMBER>"
     exit 1
 fi
-echo "serverless deploy -- --GOOGLE_MAPS_API_KEY $KEY"
+serverless deploy --GOOGLE_MAPS_API_KEY $KEY --alias $BUILD_NUMBER
