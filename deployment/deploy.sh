@@ -8,6 +8,6 @@ then
 fi
 
 pushd $BUILD_NUMBER
-pipenv install
+~/.local/bin/pipenv/pipenv install
 serverless deploy --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
 popd
