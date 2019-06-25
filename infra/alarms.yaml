@@ -1,0 +1,30 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Cloudformation template to create alarms for a lambda
+Parameters:
+  LambdaName:
+    Type: String
+    Default: traffic-data-collector-dev-collect_traffic_data
+  SNSTopicARN:
+    Type: String
+    Default: arn:aws:sns:us-east-1:025521408748:lambda-alarm-failure
+Resources:
+  ErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      ActionsEnabled: True
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      AlarmName: LAMBDA-ERROR
+      TreatMissingData: breaching
+      Namespace: AWS/Lambda
+      MetricName: Errors
+      Dimensions:
+        - Name: FunctionName
+          Value: !Ref LambdaName
+      EvaluationPeriods: 1
+      Threshold: 1
+      Period: 360
+      Statistic: Sum
+      AlarmActions:
+        - !Ref SNSTopicARN
+      OKActions:
+        - !Ref SNSTopicARN
