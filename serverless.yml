@@ -71,6 +71,7 @@ provider:
 
 functions:
   collect_traffic_data:
+    name: ${opt:env}_collect_traffic_data
     handler: traffict_data_collector.handler
 
 #    The following are a few example events you can configure

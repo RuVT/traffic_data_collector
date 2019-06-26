@@ -9,4 +9,4 @@ fi
 
 npm install
 pipenv install
-npm run deploy -- --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
+npm run deploy -- --GOOGLE_MAPS_API_KEY  --stage stg
