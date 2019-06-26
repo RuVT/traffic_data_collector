@@ -3,7 +3,7 @@ Description: Cloudformation template to create alarms for a lambda
 Parameters:
   LambdaName:
     Type: String
-    Default: traffic-data-collector-dev-collect_traffic_data
+    Default: prd_collect_traffic_data
   SNSTopicARN:
     Type: String
     Default: arn:aws:sns:us-east-1:025521408748:lambda-alarm-failure
