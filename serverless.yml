@@ -72,7 +72,7 @@ provider:
 functions:
   collect_traffic_data:
     name: ${self:provider.stage}_collect_traffic_data
-    handler: traffict_data_collector.handler
+    handler: traffic_data_collector.handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events

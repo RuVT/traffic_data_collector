@@ -9,6 +9,7 @@ verify_ssl = true
 requests = "*"
 pyyaml = "*"
 boto3 = "*"
+moto = "*"
 
 [requires]
 python_version = "3.7"
