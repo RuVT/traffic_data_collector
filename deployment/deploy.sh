@@ -7,7 +7,7 @@ then
     exit 1
 fi
 
-pushd $BUILD_NUMBER
+npm install
 pipenv install
-serverless deploy --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
-popd
+npm run deploy --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
+
