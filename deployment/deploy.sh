@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 KEY=$1
-BUILD_NUMBER=$2
-if [ -z $KEY ] || [ -z $BUILD_NUMBER ]
+ENV=$2
+if [ -z $KEY ] || [ -z $ENV ]
 then
-    echo "Usage: deploy.sh <GOOGLE_API_KEY> <BUILD_NUMBER>"
+    echo "Usage: deploy.sh <GOOGLE_API_KEY> <stg/prd>"
     exit 1
 fi
 
-pushd $BUILD_NUMBER
+npm install
 pipenv install
-serverless deploy --GOOGLE_MAPS_API_KEY  --alias $BUILD_NUMBER
-popd
+npm run deploy -- --GOOGLE_MAPS_API_KEY  --stage "${ENV,,}"

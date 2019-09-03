@@ -24,7 +24,7 @@ provider:
   runtime: python3.7
 
 # you can overwrite defaults here
-  stage: dev
+  stage:  ${opt:stage, 'dev'}
   region: us-east-1
 
 # you can add statements to the Lambda function's IAM Role here
@@ -57,7 +57,7 @@ provider:
 
 # you can define service wide environment variables here
   environment:
-    TRAFFIC_DATA_SOURCE_BUCKET_NAME: traffic-data-source
+    TRAFFIC_DATA_SOURCE_BUCKET_NAME: traffic-data-extractor
     ORIGIN_DESTINATION_TABLE_NAME: origin-destination-table
 
 # you can add packaging information here
@@ -71,7 +71,8 @@ provider:
 
 functions:
   collect_traffic_data:
-    handler: traffict_data_collector.handler
+    name: ${self:provider.stage}_collect_traffic_data
+    handler: traffic_data_collector.handler
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -113,11 +114,11 @@ resources:
     TrafficDataSourceBucketResource:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:provider.environment.TRAFFIC_DATA_SOURCE_BUCKET_NAME}
+        BucketName: ${self:provider.stage}-${self:provider.environment.TRAFFIC_DATA_SOURCE_BUCKET_NAME}
     OriginDestinationTableResource:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.ORIGIN_DESTINATION_TABLE_NAME}
+        TableName: ${self:provider.stage}-${self:provider.environment.ORIGIN_DESTINATION_TABLE_NAME}
         AttributeDefinitions:
           - AttributeName: uuid
             AttributeType: S

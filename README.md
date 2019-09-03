@@ -16,3 +16,14 @@ npm install
 #deploy, you need to have your aws credentials configured 
 npm run deploy -- --GOOGLE_MAPS_API_KEY <put_here_your_api_key>
 ```
+
+## Test
+
+```bash
+ls
+# ...
+# ----------------------------------------------------------------------
+# Ran 3 tests in 0.862s
+
+# OK
+```
